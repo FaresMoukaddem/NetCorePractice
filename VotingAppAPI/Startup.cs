@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +14,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using VotingAppAPI.Data;
+using VotingAppAPI.Helpers;
 using VotingAppAPI.Repositories;
 
 namespace VotingAppAPI
@@ -35,7 +39,23 @@ namespace VotingAppAPI
 
             services.AddScoped<IAuthRepository, AuthRepository>();
 
-            services.AddAutoMapper(typeof(AuthRepository).Assembly);
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IElectionRepository, ElectionRepository>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options => 
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                    ValidateIssuer = false, // Issuer bieng where the server is (which is localhost now)
+                    ValidateAudience = false // Audience being where the client is (which is localhost now)
+                };
+            });
+
+            services.AddAutoMapper(typeof(UserRepository).Assembly);
 
             services.AddDbContext<DataContext>(x =>
             {
@@ -58,7 +78,10 @@ namespace VotingAppAPI
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRoleMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

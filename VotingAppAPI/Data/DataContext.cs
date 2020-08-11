@@ -11,23 +11,8 @@ namespace VotingAppAPI.Data
 
         public DbSet<Candidate> candidates { get ; set; }
 
-        /*
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            
-            builder.Entity<Like>()
-            .HasOne(u => u.Likee)
-            .WithMany(u => u.likers)
-            .HasForeignKey(u => u.LikeeId)
-            .OnDelete(DeleteBehavior.Restrict);
+        public DbSet<Vote> votes { get; set; }
 
-            builder.Entity<Like>()
-            .HasOne(u => u.Liker)
-            .WithMany(u => u.likees)
-            .HasForeignKey(u => u.LikerId)
-            .OnDelete(DeleteBehavior.Restrict);
-        
-        }
-        */
+        public DbSet<Election> elections { get; set; }
     }
 }
