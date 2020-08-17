@@ -48,7 +48,44 @@ namespace VotingAppAPI.Controllers
         {
             return Ok(await _userRepo.GetAllCandidates());
         }
+
+        [HttpGet("getVotes/{id}")]
+        public async Task<IActionResult> GetVotes([FromRoute] int id)
+        {
+            var votes = await _userRepo.GetElectionVotes(id);
+
+            System.Console.WriteLine("we out of this repo");
+
+            if(votes != null)
+            {
+                return Ok(votes);
+            }
+
+            System.Console.WriteLine("shakla null");
+            return BadRequest("Failed getting votes");
+        }
+
+        [HttpPost("addVote")]
+        public async Task<IActionResult> AddVote([FromBody] VoteToSendDto newVote)
+        {
+            System.Console.WriteLine("candidate id: " + newVote.CandidateId);
+            System.Console.WriteLine("election id: " + newVote.ElectionId);
+            System.Console.WriteLine("voter id: " + newVote.VoterId);
+
+            //Vote voteToAdd = new Vote(newVote.ElectionId, newVote.VoterId, newVote.CandidateId);
+
+           // System.Console.WriteLine(voteToAdd);
+
+            //System.Console.WriteLine("candidate id: " + voteToAdd.CandidateId);
+           // System.Console.WriteLine("election id: " + voteToAdd.ElectionId);
+            //System.Console.WriteLine("voter id: " + voteToAdd.VoterId);
+
+            await _userRepo.AddVote(newVote);
+           // {
+             //   return Ok("Added Vote!");
+           // }
+
+            return Ok("Failed to add votes");
+        }
     }
 }
-
-

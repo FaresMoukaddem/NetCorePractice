@@ -13,9 +13,12 @@ namespace VotingAppAPI.Controllers
     {
         private readonly IElectionRepository _elecRepo;
 
-        public ElectionController(IElectionRepository elecRepo)
+        private readonly IUserRepository _userRepo;
+
+        public ElectionController(IElectionRepository elecRepo, IUserRepository userRepo)
         {
             this._elecRepo = elecRepo;
+            this._userRepo = userRepo;
         }
 
         [HttpPost("CreateElection")]
@@ -42,9 +45,9 @@ namespace VotingAppAPI.Controllers
         }
 
         [HttpGet("GetElection/{id}")]
-        public async Task<IActionResult> GetElection([FromRoute ]int id)
+        public async Task<IActionResult> GetElection([FromRoute] int id)
         {
-            var election = await _elecRepo.GetElection(id);
+            var election = await _userRepo.GetElection(id);
 
             if(election != null)
             {
@@ -54,5 +57,10 @@ namespace VotingAppAPI.Controllers
             return BadRequest();
         }
 
+        [HttpGet("ElectionActive/{id}")]
+        public async Task<IActionResult> GetElectionActive([FromRoute] int id)
+        {
+            return Ok(await _userRepo.IsElectionActive(id));
+        }
     }
 }

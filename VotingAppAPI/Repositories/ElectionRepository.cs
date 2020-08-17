@@ -28,9 +28,18 @@ namespace VotingAppAPI.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Task<Election> ConcludeElection(int electionId)
+        public async Task<Election> ConcludeElection(int electionId)
         {
-            throw new System.NotImplementedException();
+            var election = await _context.elections.FirstOrDefaultAsync(e => e.Id == electionId);
+
+            if(election == null)
+            {
+                return null;
+            }
+
+            election.IsOver = true;
+
+            return null;
         }
 
         public async Task<ElectionToReturnDto> CreateElection(ElectionForCreationDto electionToCreate)
@@ -56,18 +65,8 @@ namespace VotingAppAPI.Repositories
             return null;
         }
 
-        public async Task<ElectionToReturnDto> GetElection(int electionId)
-        {
-            return _mapper.Map<ElectionToReturnDto>(await _context.elections.FirstOrDefaultAsync(e => e.Id == electionId));
-        }
-
-        public Task<bool> IsElectionActive(int electionId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        //===========================================================
-        //===========================================================
+        //=============================================================================================================================
+        //=============================================================================================================================
         public async Task<bool> IsCandidateIdListValid(IEnumerable<int> idList)  
         {
             var validIds = await _context.candidates.Select(x => x.Id).ToListAsync();

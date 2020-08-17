@@ -33,6 +33,8 @@ namespace VotingAppAPI.Middleware
                     await _next.Invoke(httpContext);
                 }
             }
+
+            await _next.Invoke(httpContext);
         }
 
         public bool IsAllowed(bool isVoter, string controller)

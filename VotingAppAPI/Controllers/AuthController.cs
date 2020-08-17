@@ -54,9 +54,15 @@ namespace VotingAppAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto user)
         {
+            System.Console.WriteLine("yes login");
+            
             var id = await _authRepo.Login(user);
+            
+            System.Console.WriteLine("the id returned is: " + id);
+
             if(id > 0)
             {
+                System.Console.WriteLine("jwt should be returned now");
                 return Ok(new 
                 {
                     token = Helpers.TokenHandler.GenerateJWT(id, user.username, user.isVoter)

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\NetCorePractice\\VotingAppAPI\\VotingAppAPI.csproj": {}
+    "C:\\corepractice\\CorePractice\\votingappapi\\VotingAppAPI.csproj": {}
   },
   "projects": {
-    "C:\\NetCorePractice\\VotingAppAPI\\VotingAppAPI.csproj": {
+    "C:\\corepractice\\CorePractice\\votingappapi\\VotingAppAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\NetCorePractice\\VotingAppAPI\\VotingAppAPI.csproj",
+        "projectUniqueName": "C:\\corepractice\\CorePractice\\votingappapi\\VotingAppAPI.csproj",
         "projectName": "VotingAppAPI",
-        "projectPath": "C:\\NetCorePractice\\VotingAppAPI\\VotingAppAPI.csproj",
+        "projectPath": "C:\\corepractice\\CorePractice\\votingappapi\\VotingAppAPI.csproj",
         "packagesPath": "C:\\Users\\Fares\\.nuget\\packages\\",
-        "outputPath": "C:\\NetCorePractice\\VotingAppAPI\\obj\\",
+        "outputPath": "C:\\corepractice\\CorePractice\\votingappapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -96,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400-preview-015178\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

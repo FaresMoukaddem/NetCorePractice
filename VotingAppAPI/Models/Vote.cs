@@ -15,5 +15,12 @@ namespace VotingAppAPI.Models
         public int ElectionId { get; set; }
 
         public virtual Election Election { get; set; }
+
+        public Vote(int elecId, int votrId, int candId)
+        {
+            this.ElectionId = elecId;
+            this.VoterId = votrId;
+            this.CandidateId = candId;
+        }
     }
 }

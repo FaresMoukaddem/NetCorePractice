@@ -1,6 +1,7 @@
 using VotingAppAPI.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VotingAppAPI.Models;
 
 namespace VotingAppAPI.Repositories
 {
@@ -13,5 +14,13 @@ namespace VotingAppAPI.Repositories
         Task<IEnumerable<VoterToReturn>> GetAllVoters();
 
         Task<IEnumerable<CandidateToReturn>> GetAllCandidates();
+
+        Task<bool> IsElectionActive(int electionId);
+
+        Task<ElectionToReturnDto> GetElection(int electionId);
+
+        Task<IEnumerable<Vote>> GetElectionVotes(int electionId);
+
+        Task<bool> AddVote(VoteToSendDto newVote);
     }
 }
