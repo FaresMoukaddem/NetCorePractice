@@ -20,21 +20,16 @@ namespace VotingAppAPI.Middleware
             
             System.Console.WriteLine("Controller: " + controller);
 
-            if(controller != "auth")
+            if (controller != "auth" && !IsAllowed(int.Parse(httpContext.User.Claims.ToList()[2].Value) == 1, controller))
             {
-                if (!IsAllowed(int.Parse(httpContext.User.Claims.ToList()[2].Value) == 1, controller))
-                {
-                    httpContext.Response.StatusCode = 401; // Un-Authorized
-                    await httpContext.Response.WriteAsync("Invalid User Role");
-                    return;
-                }
-                else
-                {
-                    await _next.Invoke(httpContext);
-                }
+                httpContext.Response.StatusCode = 401; // Un-Authorized
+                await httpContext.Response.WriteAsync("Invalid User Role");
+                return;
             }
-
-            await _next.Invoke(httpContext);
+            else
+            {
+                await _next(httpContext);
+            }
         }
 
         public bool IsAllowed(bool isVoter, string controller)

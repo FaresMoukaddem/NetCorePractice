@@ -22,5 +22,10 @@ namespace VotingAppAPI.Models
             this.VoterId = votrId;
             this.CandidateId = candId;
         }
+
+        public Vote()
+        {
+            
+        }
     }
 }
