@@ -1,29 +1,40 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using MovieApp.Models;
 
-namespace VotingAppAPI.Helpers
+namespace MovieApp.Helpers
 {
-    public class TokenHandler
+    public class JWTTokenHandler
     {
-
         private static readonly IConfiguration _config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", optional: false)
             .Build();
 
-        public static string GenerateJWT(int id, string username)
+        public static string GenerateJWT(string id, string username, IList<string> userRoles = null)
         {
             // User specific info for the token
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                 new Claim(ClaimTypes.Name, username)
             };
+
+            if(userRoles != null)
+            {
+                foreach(string role in userRoles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
+            }
 
             // Key to sign the token (we get the key from the config dependency)
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));

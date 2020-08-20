@@ -14,7 +14,7 @@ namespace VotingAppAPI.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext httpContext)
         {
             string controller =httpContext.Request.RouteValues["controller"].ToString().ToLower();
             

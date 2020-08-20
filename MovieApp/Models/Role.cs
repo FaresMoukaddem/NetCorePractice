@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace MovieApp.Models
 {
-    public class Role: IdentityRole
+    public class Role: IdentityRole<string>
     {
-        public virtual System.Collections.Generic.ICollection<UserRole> userRoles { get; set; }
+        public virtual ICollection<UserRole> userRoles { get; set; }
     }
 }

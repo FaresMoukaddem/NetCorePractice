@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MovieApp.Models;
@@ -5,6 +6,9 @@ using MovieApp.Models;
 namespace MovieApp.Data
 {
     public class DataContext: IdentityDbContext
+    <User,Role,string,IdentityUserClaim<string>,
+    UserRole,IdentityUserLogin<string>,
+    IdentityRoleClaim<string>,IdentityUserToken<string>>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options){}
 
@@ -23,10 +27,20 @@ namespace MovieApp.Data
                 .IsRequired();
 
                 userRole.HasOne(ur => ur.User)
-                .WithMany(r => r.userRoles)
+                .WithMany(u => u.userRoles)
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
             });
+
+            builder
+            .Entity<User>()
+            .Property(u => u.Id)
+            .ValueGeneratedOnAdd();
+
+            builder
+            .Entity<Role>()
+            .Property(r => r.Id)
+            .ValueGeneratedOnAdd();
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\corepractice\\corepractice\\movieapp\\MovieApp.csproj": {}
+    "C:\\netcorepractice\\movieapp\\MovieApp.csproj": {}
   },
   "projects": {
-    "C:\\corepractice\\corepractice\\movieapp\\MovieApp.csproj": {
+    "C:\\netcorepractice\\movieapp\\MovieApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\corepractice\\corepractice\\movieapp\\MovieApp.csproj",
+        "projectUniqueName": "C:\\netcorepractice\\movieapp\\MovieApp.csproj",
         "projectName": "MovieApp",
-        "projectPath": "C:\\corepractice\\corepractice\\movieapp\\MovieApp.csproj",
+        "projectPath": "C:\\netcorepractice\\movieapp\\MovieApp.csproj",
         "packagesPath": "C:\\Users\\Fares\\.nuget\\packages\\",
-        "outputPath": "C:\\corepractice\\corepractice\\movieapp\\obj\\",
+        "outputPath": "C:\\netcorepractice\\movieapp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -108,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400-preview-015178\\RuntimeIdentifierGraph.json"
         }
       }
     }

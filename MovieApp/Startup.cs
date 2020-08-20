@@ -34,6 +34,8 @@ namespace MovieApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddAutoMapper(typeof(UserRepository).Assembly);
+
             IdentityBuilder builder = services.AddIdentityCore<User>(opt => 
             {
                 opt.Password.RequireDigit = false;
@@ -60,6 +62,12 @@ namespace MovieApp
                 };
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("InsiderRole", policy => policy.RequireRole("Admin","Moderator"));
+                options.AddPolicy("OutsiderRole", policy => policy.RequireRole("Member"));
+            });
+
             services.AddControllers(options => 
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -69,8 +77,6 @@ namespace MovieApp
                 options.Filters.Add(new AuthorizeFilter(policy));
             })
             .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            //services.AddAutoMapper(typeof(UserRepository).Assembly);
 
             services.AddDbContext<DataContext>(x =>
             {
@@ -90,6 +96,8 @@ namespace MovieApp
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
